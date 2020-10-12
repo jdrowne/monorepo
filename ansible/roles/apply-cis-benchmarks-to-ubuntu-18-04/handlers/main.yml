@@ -1,0 +1,4 @@
+---
+- name: Restarting system to apply configurations that require a restart
+  reboot:
+  become: true

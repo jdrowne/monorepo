@@ -1,0 +1,84 @@
+---
+- name: Disabling mounting of unused filesystems
+  block:
+    # 1.1.1.1 Ensure mounting of cramfs filesystems is disabled
+    - name: "Applying recommendation 1.1.1.1: Disabling mounting of cramfs filesystems"
+      lineinfile:
+        path: /etc/modprobe.d/cramfs.conf
+        line: install cramfs /bin/true
+        create: true
+
+    # 1.1.1.1 Ensure mounting of cramfs filesystems is disabled
+    - name: "Applying recommendation 1.1.1.1: Unloading the cramfs module"
+      modprobe:
+        name: cramfs
+        state: absent
+
+    # 1.1.1.2 Ensure mounting of freevxfs filesystems is disabled
+    - name: "Applying recommendation 1.1.1.2: Disabling mounting of freevxfs filesystems"
+      lineinfile:
+        path: /etc/modprobe.d/freevxfs.conf
+        line: install freevxfs /bin/true
+        create: true
+
+    # 1.1.1.2 Ensure mounting of freevxfs filesystems is disabled
+    - name: "Applying recommendation 1.1.1.2: Unloading the freevxfs module"
+      modprobe:
+        name: freevxfs
+        state: absent
+
+    # 1.1.1.3 Ensure mounting of jffs2 filesystems is disabled
+    - name: "Applying recommendation 1.1.1.3: Disabling mounting of jffs2 filesystems"
+      lineinfile:
+        path: /etc/modprobe.d/jffs2.conf
+        line: install jffs2 /bin/true
+        create: true
+
+    # 1.1.1.3 Ensure mounting of jffs2 filesystems is disabled
+    - name: "Applying recommendation 1.1.1.3: Unloading the jffs2 module"
+      modprobe:
+        name: jffs2
+        state: absent
+
+    # 1.1.1.4 Ensure mounting of hfs filesystems is disabled
+    - name: "Applying recommendation 1.1.1.4: Disabling mounting of hfs filesystems"
+      lineinfile:
+        path: /etc/modprobe.d/hfs.conf
+        line: install hfs /bin/true
+        create: true
+
+    # 1.1.1.4 Ensure mounting of hfs filesystems is disabled
+    - name: "Applying recommendation 1.1.1.4: Unloading the hfs module"
+      modprobe:
+        name: hfs
+        state: absent
+
+    # 1.1.1.5 Ensure mounting of hfsplus filesystems is disabled
+    - name: "Applying recommendation 1.1.1.5: Disabling mounting of hfsplus filesystems"
+      lineinfile:
+        path: /etc/modprobe.d/hfsplus.conf
+        line: install hfsplus /bin/true
+        create: true
+
+    # 1.1.1.5 Ensure mounting of hfsplus filesystems is disabled
+    - name: "Applying recommendation 1.1.1.5: Unloading the hfsplus module"
+      modprobe:
+        name: hfsplus
+        state: absent
+
+    # 1.1.1.6 Ensure mounting of udf filesystems is disabled
+    - name: "Applying recommendation 1.1.1.6: Disabling mounting of udf filesystems"
+      lineinfile:
+        path: /etc/modprobe.d/udf.conf
+        line: install udf /bin/true
+        create: true
+
+    # 1.1.1.6 Ensure mounting of udf filesystems is disabled
+    - name: "Applying recommendation 1.1.1.6: Unloading the udf module"
+      modprobe:
+        name: udf
+        state: absent
+
+  become: true
+  notify:
+    - Restarting system to apply configurations that require a restart
