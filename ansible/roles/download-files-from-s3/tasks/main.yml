@@ -1,0 +1,36 @@
+---
+- name: Getting S3 object keys
+  aws_s3:
+    mode: list
+    bucket: "{{ download_files_from_s3_bucket }}"
+    prefix: "{{ download_files_from_s3_prefix }}"
+    marker: "{{ download_files_from_s3_prefix }}/"
+  register: download_files_from_s3_list
+
+- name: Creating directories
+  file:
+    state: directory
+    path: "{{ download_files_from_s3_path }}/{{ item | dirname }}"
+    owner: "{{ download_files_from_s3_owner }}"
+    group: "{{ download_files_from_s3_group }}"
+  become: true
+  with_items:
+    - "{{ download_files_from_s3_list['s3_keys'] }}"
+
+- name: Downloading S3 objects
+  aws_s3:
+    mode: get
+    bucket: "{{ download_files_from_s3_bucket }}"
+    object: "{{ item }}"
+    dest: "{{ download_files_from_s3_path }}/{{ item }}"
+  with_items:
+    - "{{ download_files_from_s3_list['s3_keys'] }}"
+
+- name: Setting up the right permissions
+  file:
+    path: "{{ download_files_from_s3_path }}/{{ item }}"
+    owner: "{{ download_files_from_s3_owner }}"
+    group: "{{ download_files_from_s3_group }}"
+  become: true
+  with_items:
+    - "{{ download_files_from_s3_list['s3_keys'] }}"

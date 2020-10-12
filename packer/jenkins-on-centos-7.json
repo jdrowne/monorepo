@@ -1,0 +1,59 @@
+{
+  "variables": {
+    "ami_id": "jenkins-on-centos-7-{{isotime \"2006-01-02-15-04-05-MST\"}}",
+    "subnet_id": ""
+  },
+  "builders": [
+    {
+      "ami_block_device_mappings": [
+        {
+          "delete_on_termination": true,
+          "device_name": "/dev/sda",
+          "encrypted": true,
+          "volume_size": 20,
+          "volume_type": "gp2"
+        }
+      ],
+      "ami_description": "Jenkins on CentOS 7",
+      "ami_name": "{{ user `ami_id` }}",
+      "encrypt_boot": true,
+      "force_delete_snapshot": true,
+      "instance_type": "t2.micro",
+      "region": "us-east-1",
+      "run_tags": {
+        "Name": "Packer instance",
+        "Expected AMI artifact": "{{ user `ami_id` }}"
+      },
+      "run_volume_tags": {
+        "Name": "Packer volume",
+        "Expected AMI artifact": "{{ user `ami_id` }}"
+      },
+      "source_ami_filter": {
+        "filters": {
+          "virtualization-type": "hvm",
+          "name": "CentOS Linux 7 x86_64 HVM EBS ENA*",
+          "root-device-type": "ebs"
+        },
+        "owners": [
+          "679593333241"
+        ],
+        "most_recent": true
+      },
+      "ssh_username": "centos",
+      "subnet_id": "{{ user `subnet_id`}}",
+      "tags": {
+        "Hardened": "no",
+        "Name": "{{ user `ami_id` }}",
+        "Operating System": "CentOS 7",
+        "STIGed": "no"
+      },
+      "type": "amazon-ebs"
+    }
+  ],
+  "provisioners": [
+    {
+      "playbook_file": "../ansible/configure-jenkins-on-centos-7.yml",
+      "type": "ansible"
+    }
+  ]
+}

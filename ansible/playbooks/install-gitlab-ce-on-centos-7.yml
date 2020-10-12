@@ -1,0 +1,114 @@
+---
+- name: Installing GitLab CE on CentOS 7
+  hosts: 127.0.0.1
+  connection: local
+  become: yes
+  roles:
+  - update-all-system-packages-in-linux
+  - install-aws-ssm-in-linux
+  - install-aws-cli-in-linux
+  - create-ansible-user-on-linux
+
+  # As documented in https://about.gitlab.com/install/#centos-7
+  tasks:
+    - name: Installing GitLab CE dependencies
+      yum:
+        name:
+          - curl
+          - policycoreutils-python
+          - openssh-server
+        state: latest
+
+    - name: Ensuring 'sshd' starts on boot
+      service:
+        enabled: yes
+        name: sshd
+
+    - name: Starting 'sshd'
+      service:
+        name: sshd
+        state: started
+
+    - name: Installing 'firewalld'
+      yum:
+        name: firewalld
+        state: latest
+
+    - name: Starting and enabling 'firewalld'
+      service:
+        enabled: yes
+        name: firewalld
+        state: started
+
+    - name: Adding the 'http' service in the firewall
+      firewalld:
+        immediate: yes
+        state: enabled
+        service: http
+      notify: restart firewalld
+
+    - name: Installing 'wget'
+      yum:
+        name: wget
+        state: latest
+
+    - name: Downloading the GitLab package repository
+      get_url:
+        dest: /tmp/gitlab-ee-script.rpm.sh
+        url: https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.rpm.sh
+        mode: 0755
+
+    - name: Adding the GitLab package repository
+      command: /tmp/gitlab-ee-script.rpm.sh
+
+    - name: Installing GitLab. Please wait...
+      yum:
+        name: gitlab-ee
+        state: present
+      tags:
+        - never
+
+    - name: Setting up the Gitlab URL
+      replace:
+        path: /etc/gitlab/gitlab.rb
+        regexp: ^external_url.*
+        replace: external_url 'https://gitlab.drowne.org'
+
+    - name: Installing 'pyOpenSSL'
+      pip:
+        name: pyopenssl
+
+    - name: Generating a private SSL key
+      openssl_privatekey:
+        path: /etc/gitlab/ssl/gitlab.drowne.org.key
+
+    - name: Generating a private SSL CSR
+      openssl_csr:
+        path: /etc/gitlab/ssl/gitlab.drowne.org.csr
+        privatekey_path: /etc/gitlab/ssl/gitlab.drowne.org.key
+        common_name: gitlab.drowne.org
+
+    - name: Generating a self-signed SSL certificate
+      openssl_certificate:
+        path: /etc/gitlab/ssl/gitlab.drowne.org.crt
+        privatekey_path: /etc/gitlab/ssl/gitlab.drowne.org.key
+        csr_path: /etc/gitlab/ssl/gitlab.drowne.org.csr
+        provider: selfsigned
+
+    - name: Opening HTTPS in the firewall
+      firewalld:
+        immediate: yes
+        state: enabled
+        service: http
+      notify: restart firewalld
+
+    - name: Starting GitLab. Please wait...
+      command: gitlab-ctl reconfigure
+      tags:
+        - never
+
+  handlers:
+    - name: restart firewalld
+      service:
+        name: firewalld
+        state: restarted

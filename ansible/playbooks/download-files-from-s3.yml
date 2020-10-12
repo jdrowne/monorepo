@@ -1,0 +1,11 @@
+---
+- name: Downloading files from S3 into a remote server
+  hosts: 127.0.0.1
+  vars:
+    download_files_from_s3_bucket: jdrowne
+    download_files_from_s3_prefix: test-playbook
+    download_files_from_s3_path: /tmp
+    download_files_from_s3_owner: vagrant
+    download_files_from_s3_group: vagrant
+  roles:
+    - download-files-from-s3

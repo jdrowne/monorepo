@@ -1,0 +1,62 @@
+---
+- name: Configuring GitLab CE on CentOS 7
+  hosts: 127.0.0.1
+  connection: local
+  become: yes
+  roles:
+  - update-all-system-packages-in-linux
+  - install-aws-ssm-in-linux
+  - install-aws-cli-in-linux
+  - create-ansible-user-on-linux
+
+  # As documented in https://jenkins.io/doc/book/installing/#linux
+  tasks:
+    - name: Downloading the Jenkins yum repository
+      get_url:
+        dest: /etc/yum.repos.d/jenkins.repo
+        url: http://pkg.jenkins-ci.org/redhat/jenkins.repo
+
+    - name: Adding the Jenkins RPM Key
+      rpm_key:
+        key: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+
+    - name: Installing Jenkins and its dependencies
+      yum:
+        name:
+          - jenkins
+          - java
+        state: present
+
+    - name: Starting the 'jenkins' service
+      service:
+        name: jenkins
+        state: started
+
+    - name: Ensuring the 'jenkins' service starts on boot
+      service:
+        enabled: yes
+        name: jenkins
+
+    - name: Installing firewalld
+      yum:
+        name: firewalld
+        state: latest
+
+    - name: Starting and enabling 'firewalld'
+      service:
+        enabled: yes
+        name: firewalld
+        state: started
+
+    - name: Adding the 'jenkins' service in the firewall
+      firewalld:
+        immediate: yes
+        port: 8080/tcp
+        state: enabled
+        service: jenkins
+        zone: public
+
+    - name: Restarting firewalld
+      service:
+        name: firewalld
+        state: restarted

@@ -1,0 +1,5 @@
+---
+- name: Installing the Red Hat EPEL repository
+  yum:
+    name: epel-release
+  become: true

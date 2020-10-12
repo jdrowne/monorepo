@@ -1,0 +1,14 @@
+---
+# Checksum and its related algorithm documented at: https://www.terraform.io/downloads.html
+- name: Downloading the Terraform installation file
+  get_url:
+    url: "{{ install_terraform_in_linux_url }}"
+    dest: "/tmp/{{ install_terraform_in_linux_file }}"
+    checksum: "sha256:{{ install_terraform_in_linux_checksum }}"
+  become: yes
+
+- name: Extracting the Terraform installation file
+  unarchive:
+    src: "/tmp/{{ install_terraform_in_linux_file }}"
+    dest: /usr/local/bin
+  become: yes

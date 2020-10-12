@@ -1,0 +1,21 @@
+---
+- name: Installing python-apt
+  apt:
+    name: python-apt
+    update_cache: true
+  become: true
+
+- name: Installing pip
+  apt:
+    name: python-pip
+  become: true
+
+# Consult with your IA team regarding the use of pip. You might have to
+# mitigate its use.
+- name: Installing Molecule and its dependencies
+  pip:
+    name:
+      - docker-py
+      - molecule
+      - python-vagrant
+  become: true

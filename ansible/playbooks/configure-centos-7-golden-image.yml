@@ -1,0 +1,10 @@
+---
+- name: Configuring the CentOS golden image
+  hosts: 127.0.0.1
+  connection: local
+  become: yes
+  roles:
+  - update-all-system-packages-in-linux
+  - install-aws-ssm-in-linux
+  - install-aws-cli-in-linux
+  - create-ansible-user-on-linux

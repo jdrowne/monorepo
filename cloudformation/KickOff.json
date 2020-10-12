@@ -1,0 +1,441 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Kicks off a full deployment of CI/CD artifacts",
+  "Parameters": {
+    "AMIID": {
+      "Description": "ID of the RHEL AMI to use to deploy the kickoff server",
+      "Type": "String",
+      "Default": "ami-9887c6e7"
+    },
+    "SSHLocation": {
+      "Description": " The IP address range that can be used to SSH to the kickoff server",
+      "Type": "String",
+      "MinLength": "9",
+      "MaxLength": "18",
+      "Default": "0.0.0.0/0",
+      "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+      "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x."
+    }
+  },
+  "Resources": {
+    "KickoffVPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.255.255.240/28",
+        "EnableDnsSupport": true,
+        "EnableDnsHostnames": true,
+        "Tags": [
+          {
+            "Key": "Created By",
+            "Value": "CloudFormation"
+          },
+          {
+            "Key": "Environment",
+            "Value": "Kickoff"
+          },
+          {
+            "Key": "Name",
+            "Value": "KickOffVPC"
+          },
+          {
+            "Key": "Purpose",
+            "Value": "Establish a tiny VPC to host DevOps tools so that other artifacts can be deployed through it"
+          }
+        ]
+      }
+    },
+    "PublicSubnetSubnet": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "AvailabilityZone": "us-east-1a",
+        "CidrBlock": "10.255.255.240/28",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "PublicKickOffSubnet"
+          },
+          {
+            "Key": "Environment",
+            "Value": "Kickoff"
+          },
+          {
+            "Key": "Purpose",
+            "Value": "Provide a public subnet from which DevOps tools can be accessed"
+          }
+        ],
+        "VpcId": {
+          "Ref": "KickoffVPC"
+        }
+      }
+    },
+    "KickoffInternetGateway": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "KickoffIGW"
+          },
+          {
+            "Key": "Purpose",
+            "Value": "Establish a public gateway for the kickoff server"
+          }
+        ]
+      }
+    },
+    "AttachGateway": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": {
+          "Ref": "KickoffVPC"
+        },
+        "InternetGatewayId": {
+          "Ref": "KickoffInternetGateway"
+        }
+      }
+    },
+    "RouteTable": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "KickoffVPC"
+        }
+      }
+    },
+    "Route": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "RouteTable"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "KickoffInternetGateway"
+        }
+      },
+      "DependsOn": "AttachGateway"
+    },
+    "SubnetRouteTableAssociation": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "SubnetId": {
+          "Ref": "PublicSubnetSubnet"
+        },
+        "RouteTableId": {
+          "Ref": "RouteTable"
+        }
+      }
+    },
+    "NetworkAcl": {
+      "Type": "AWS::EC2::NetworkAcl",
+      "Properties": {
+        "VpcId": {
+          "Ref": "KickoffVPC"
+        }
+      }
+    },
+    "InboundSSHNetworkAclEntry": {
+      "Type": "AWS::EC2::NetworkAclEntry",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "NetworkAcl"
+        },
+        "RuleNumber": "100",
+        "Protocol": "6",
+        "RuleAction": "allow",
+        "Egress": "false",
+        "CidrBlock": "0.0.0.0/0",
+        "PortRange": {
+          "From": "22",
+          "To": "22"
+        }
+      }
+    },
+    "InboundResponsePortsNetworkAclEntry": {
+      "Type": "AWS::EC2::NetworkAclEntry",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "NetworkAcl"
+        },
+        "RuleNumber": "110",
+        "Protocol": "6",
+        "RuleAction": "allow",
+        "Egress": "false",
+        "CidrBlock": "0.0.0.0/0",
+        "PortRange": {
+          "From": "1024",
+          "To": "65535"
+        }
+      }
+    },
+    "OutBoundHTTPNetworkAclEntry": {
+      "Type": "AWS::EC2::NetworkAclEntry",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "NetworkAcl"
+        },
+        "RuleNumber": "100",
+        "Protocol": "6",
+        "RuleAction": "allow",
+        "Egress": "true",
+        "CidrBlock": "0.0.0.0/0",
+        "PortRange": {
+          "From": "80",
+          "To": "80"
+        }
+      }
+    },
+    "OutBoundHTTPSNetworkAclEntry": {
+      "Type": "AWS::EC2::NetworkAclEntry",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "NetworkAcl"
+        },
+        "RuleNumber": "110",
+        "Protocol": "6",
+        "RuleAction": "allow",
+        "Egress": "true",
+        "CidrBlock": "0.0.0.0/0",
+        "PortRange": {
+          "From": "443",
+          "To": "443"
+        }
+      }
+    },
+    "OutBoundResponsePortsNetworkAclEntry": {
+      "Type": "AWS::EC2::NetworkAclEntry",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "NetworkAcl"
+        },
+        "RuleNumber": "120",
+        "Protocol": "6",
+        "RuleAction": "allow",
+        "Egress": "true",
+        "CidrBlock": "0.0.0.0/0",
+        "PortRange": {
+          "From": "1024",
+          "To": "65535"
+        }
+      }
+    },
+    "SubnetNetworkAclAssociation": {
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "Properties": {
+        "SubnetId": {
+          "Ref": "PublicSubnetSubnet"
+        },
+        "NetworkAclId": {
+          "Ref": "NetworkAcl"
+        }
+      }
+    },
+    "IPAddress": {
+      "Type": "AWS::EC2::EIP",
+      "DependsOn": "AttachGateway",
+      "Properties": {
+        "Domain": "vpc",
+        "InstanceId": {
+          "Ref": "KickOffInstance"
+        }
+      }
+    },
+    "InstanceSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "VpcId": {
+          "Ref": "KickoffVPC"
+        },
+        "GroupDescription": "Enable SSH access via port 22",
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": "22",
+            "ToPort": "22",
+            "CidrIp": {
+              "Ref": "SSHLocation"
+            }
+          }
+        ]
+      }
+    },
+    "DeployerIAMPolicy": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "Description": "Grants broad permissions to deploy resources in AWS",
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": "*",
+              "Resource": "*"
+            },
+            {
+              "Effect": "Deny",
+              "Action": [
+                "aws-portal:*",
+                "awsbillingconsole:*",
+                "budgets:*",
+                "cur:*",
+                "iam:Change*",
+                "iam:Deactivate*",
+                "iam:Delete*",
+                "iam:Detach*",
+                "iam:Remove*",
+                "iam:Reset*",
+                "iam:Set*",
+                "iam:Update*"
+              ],
+              "Resource": "*"
+            }
+          ]
+        },
+        "ManagedPolicyName" : "DeployResourcesBroadly"
+      }
+    },
+    "DeployerIAMRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ec2.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "ManagedPolicyArns": [
+          {
+            "Ref": "DeployerIAMPolicy"
+          }
+        ],
+        "RoleName": "EC2DeployerRole"
+      }
+    },
+    "KickOffInstance": {
+      "Type": "AWS::EC2::Instance",
+      "Metadata": {
+        "Comment": "Installs several DevOps tools",
+        "AWS::CloudFormation::Init": {
+          "config": {
+            "packages": {
+              "yum": {
+                "wget": []
+              }
+            },
+            "commands": {
+              "01_download_kickoff_playbooks": {
+                "command": "wget -P /tmp http://jdrowne.s3.amazonaws.com/kickoff-aws-landscape.tar.gz"
+              },
+              "02_extract_file": {
+                "command": "tar -xvf /tmp/kickoff-aws-landscae.tar.gz -C /tmp"
+              },
+              "03_deploy_landscape": {
+                "command": "/tmp/kickoff-aws-landscape/deploy-landscape.sh"
+              }
+            }
+          }
+        }
+      },
+      "Properties": {
+        "ImageId": {
+          "Ref": "AMIID"
+        },
+        "IamInstanceProfile": {
+          "Ref": "EC2RoleForSSMIAMInstanceProfile"
+        },
+        "InstanceType": "t2.micro",
+        "KeyName": "MyEC2KP",
+        "Tags": [
+          {
+            "Key": "Application",
+            "Value": "DevOps tools"
+          },
+          {
+            "Key": "Environment",
+            "Value": "Kickoff"
+          },
+          {
+            "Key": "Name",
+            "Value": "Kickoff Server"
+          },
+          {
+            "Key": "Purpose",
+            "Value": "Kickoff instance from which all other artifacts are deployed initially"
+          }
+        ],
+        "NetworkInterfaces": [
+          {
+            "GroupSet": [
+              {
+                "Ref": "InstanceSecurityGroup"
+              }
+            ],
+            "AssociatePublicIpAddress": "true",
+            "DeviceIndex": "0",
+            "DeleteOnTermination": "true",
+            "SubnetId": {
+              "Ref": "PublicSubnetSubnet"
+            }
+          }
+        ],
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "",
+              [
+                "#!/bin/bash -xe\n",
+                "yum install -y epel-release\n",
+                "yum install -y https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.amzn1.noarch.rpm\n",
+                "ln -s /usr/local/lib/python2.7/site-packages/cfnbootstrap /usr/lib/python2.7/site-packages/cfnbootstrap\n",
+                "/opt/aws/bin/cfn-init -v ",
+                "         --stack ",
+                {
+                  "Ref": "AWS::StackName"
+                },
+                "         --resource KickOffInstance ",
+                "         --region ",
+                {
+                  "Ref": "AWS::Region"
+                },
+                "\n",
+                "/opt/aws/bin/cfn-signal -e $? ",
+                "         --stack ",
+                {
+                  "Ref": "AWS::StackName"
+                },
+                "         --resource KickOffInstance ",
+                "         --region ",
+                {
+                  "Ref": "AWS::Region"
+                },
+                "\n"
+              ]
+            ]
+          }
+        }
+      },
+      "DependsOn": "AttachGateway",
+      "CreationPolicy": {
+        "ResourceSignal": {
+          "Timeout": "PT5M"
+        }
+      }
+    },
+    "EC2RoleForSSMIAMInstanceProfile": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Roles": [
+          {
+            "Ref": "EC2RoleForSSMIAMRole"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+---
+dependencies:
+  - role: install-docker
+  - role: install-vagrant
+  - role: install-virtualbox

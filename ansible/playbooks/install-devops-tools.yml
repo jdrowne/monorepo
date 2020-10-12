@@ -1,0 +1,9 @@
+---
+- name: Installing DevOps tools
+  hosts: localhost
+  roles:
+    - update-all-system-packages-in-linux
+    - install-aws-ssm-in-linux
+    - install-aws-cli-in-linux
+    - install-packer-in-linux
+    - install-terraform-in-linux

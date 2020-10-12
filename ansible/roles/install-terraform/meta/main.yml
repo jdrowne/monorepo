@@ -1,0 +1,13 @@
+---
+galaxy_info:
+  author: Jose Drowne < https://www.linkedin.com/in/jdrowne >
+  description: Installs Hashicorp's Terraform open source distribution
+  license: Copyright (c) Jose Drowne. All rights reserved.
+  min_ansible_version: 2.8.3
+  platforms:
+    - name: Ubuntu
+      versions:
+        - 18.04
+dependencies:
+  - role: add-usr-local-bin-to-path
+  - role: install-unzip-in-linux

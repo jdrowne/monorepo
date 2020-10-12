@@ -1,0 +1,5 @@
+---
+- name: Installing Molecule
+  hosts: all
+  roles:
+    - install-molecule

@@ -1,0 +1,5 @@
+---
+- name: Configuring the Vagrant box
+  hosts: all
+  roles:
+    - configure-vagrant-box

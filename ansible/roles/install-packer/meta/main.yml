@@ -1,0 +1,4 @@
+---
+dependencies:
+  - role: add-usr-local-bin-to-path
+  - role: install-unzip-in-linux

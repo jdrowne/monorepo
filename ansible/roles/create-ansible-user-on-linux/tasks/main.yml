@@ -1,0 +1,52 @@
+---
+- name: Creating the 'ansible' group
+  group:
+    name: ansible
+
+- name: Creating the 'ansible' user
+  user:
+    comment: Ansible service account
+    generate_ssh_key: yes
+    groups:
+      - ansible
+      - wheel
+    name: ansible
+
+- name: Changing the group of the home directory of the 'ansible' user
+  file:
+    group: ansible
+    path: /home/ansible
+    recurse: yes
+    state: directory
+
+# Contains the 'mkpasswd' utility
+- name: Installing the 'expect' package
+  yum:
+    name: expect
+    state: latest
+
+- name: Assigning a password to the 'ansible' user
+  command: mkpasswd -l 14 -d 2 -c 2 -C 2 -s 2 ansible
+
+# Per RHEl 7 STIG finding V-71947 which allows NOPASSWD on sudo
+# if-and-only-if passwords are not used for authentication. SSH
+# keys will be used to authenticate the ansible user instead.
+# Please see Check Text C-72179r3_chk for more information.
+- name: Locking the password of the 'ansible' user
+  command: passwd -l ansible
+
+# This action complies with RHEl 7 STIG finding V-71947 in conjunction
+# with the previous action because the aforementioned finding allows
+# NOPASSWD on sudo if-and-only-if passwords are not used for
+# authentication. Please see Check Text C-72179r3_chk for more
+# information.
+- name: Allowing the 'ansible' user to elevate itself to root without providing a password
+  blockinfile:
+    create: yes
+    dest: /etc/sudoers.d/ansible
+    block: |
+      # This action complies with RHEl 7 STIG finding V-71947 because the
+      # ansible user cannot use passwords for authentication and the
+      # aforementioned finding allows NOPASSWD on sudo in such cases.
+      # Please see Check Text C-72179r3_chk for more information.
+      ansible ALL=(ALL) NOPASSWD: ALL

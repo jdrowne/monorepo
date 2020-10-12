@@ -1,0 +1,31 @@
+---
+- name: Installing python-apt
+  apt:
+    name: python-apt
+    update_cache: true
+  become: true
+
+- name: Gathering information about packages already installed
+  package_facts:
+
+- name: Installing unzip if it's not already installed
+  apt:
+    name: unzip
+  become: true
+  when:
+    ansible_facts['packages']['unzip'] is not defined
+
+- name: "Installing Vagrant v{{ install_vagrant_version }}"
+  unarchive:
+    src: "{{ install_vagrant_rpm_url }}"
+    dest: "{{ install_vagrant_dest }}"
+    remote_src: true
+  become: true
+
+- name: Uninstalling unzip if it was installed
+  apt:
+    name: unzip
+    state: absent
+  become: true
+  when:
+    ansible_facts['packages']['unzip'] is not defined

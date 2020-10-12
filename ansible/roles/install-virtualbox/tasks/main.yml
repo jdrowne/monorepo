@@ -1,0 +1,44 @@
+---
+- name: Gathering information about packages already installed
+  package_facts:
+
+- name: Installing lsb_core if it's not already installed
+  apt:
+    name: lsb-core
+  become: true
+  when:
+    ansible_facts['packages']['lsb-core'] is not defined
+
+- name: Getting the distribution's codename
+  shell: lsb_release -c -s
+  register: install_virtualbox_distribution_codename
+
+- name: Uninstalling lsb-core if it was installed in this run
+  apt:
+    name: lsb-core
+    state: absent
+  become: true
+  when:
+    ansible_facts['packages']['lsb-core'] is not defined
+
+- name: Setting up a VirtualBox repository
+  lineinfile:
+    path: "{{ install_virtualbox_sources_list_path }}"
+    line: "deb https://download.virtualbox.org/virtualbox/debian {{ install_virtualbox_distribution_codename['stdout'] }} contrib"
+  become: true
+
+- name: Adding an apt key for VirtualBox
+  apt_key:
+    url: "{{ install_virtualbox_apt_key_url }}"
+  become: true
+
+- name: Installing python-apt
+  apt:
+    name: python-apt
+    update_cache: true
+  become: true
+
+- name: Installing VirtualBox
+  apt:
+    name: virtualbox-6.0
+  become: true

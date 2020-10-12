@@ -1,0 +1,21 @@
+---
+# As documented in https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-manual-agent-install.html#agent-install-ubuntu-snap
+
+# The Ansible 'snap' module is still in development. Release is expected to be
+# merged into Ansible v2.8. For more information, see:
+# https://docs.ansible.com/ansible/devel/modules/snap_module.html
+# https://docs.ansible.com/ansible/latest/reference_appendices/release_and_maintenance.html
+# Using the Ansible 'command' module in the meantime.
+- name: Installing the AWS SSM agent
+  command: snap install amazon-ssm-agent --classic
+  become: yes
+  when:
+    - ansible_os_family == "Debian"
+
+- name: Installing the AWS SSM agent
+  yum:
+    name: https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+    state: present
+  become: yes
+  when:
+    - ansible_os_family == "RedHat"

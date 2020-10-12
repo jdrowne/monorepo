@@ -1,0 +1,4 @@
+---
+install_vagrant_dest: /usr/local/bin
+install_vagrant_rpm_url: "https://releases.hashicorp.com/vagrant/{{ install_vagrant_version }}/vagrant_{{ install_vagrant_version }}_linux_amd64.zip"
+install_vagrant_version: 2.2.5

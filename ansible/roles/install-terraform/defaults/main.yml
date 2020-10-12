@@ -1,0 +1,6 @@
+---
+# As documented in https://www.terraform.io/downloads.html
+install_terraform_version: 0.12.6
+install_terraform_in_linux_file: "terraform_{{ install_terraform_version }}_linux_amd64.zip"
+install_terraform_in_linux_url: "https://releases.hashicorp.com/terraform/0.11.11/{{ install_terraform_in_linux_file }}"
+install_terraform_in_linux_checksum: 90a6b8e3772a7e5c5606c84ffc6dfe048202a212525b74cd68bf4e7d4ccab322

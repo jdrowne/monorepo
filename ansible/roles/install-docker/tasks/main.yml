@@ -1,0 +1,74 @@
+---
+- name: Installing python-apt
+  apt:
+    name: python-apt
+    update_cache: true
+  become: true
+
+- name: Installing dependencies
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+  become: true
+
+- name: Installing a Docker GPG key
+  apt_key:
+    url: "{{ install_docker_gpg_key_url }}"
+  become: true
+
+- name: Gathering information about packages already installed
+  package_facts:
+
+- name: Installing lsb-core if it's not already installed
+  apt:
+    name: lsb-core
+  become: true
+  when:
+    ansible_facts['packages']['lsb-core'] is not defined
+
+- name: Getting the distribution's codename
+  shell: lsb_release -c -s
+  register: install_docker_distribution_codename
+
+- name: Uninstalling lsb-core if it was installed in this run
+  apt:
+    name: lsb-core
+    state: absent
+  become: true
+  when:
+    ansible_facts['packages']['lsb-core'] is not defined
+
+- name: Setting up a Docker repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ install_docker_distribution_codename['stdout'] }} stable"
+  become: true
+
+- name: Installing Docker
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    update_cache: true
+  become: true
+
+# You might have to restart the system after performing this task if it is
+# executed against a virtual machine. See
+# https://docs.docker.com/install/linux/linux-postinstall/ for more information.
+- name: Adding the current user to the Docker group
+  user:
+    name: "{{ ansible_env['USER'] }}"
+    groups:
+      - docker
+  become: true
+
+- name: Starting Docker and ensuring that it starts on boot
+  service:
+    name: docker
+    enabled: true
+    state: started
+  become: true
