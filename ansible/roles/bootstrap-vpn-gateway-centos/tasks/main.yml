@@ -1,8 +1,56 @@
 ---
-- name: Ensuring Libreswan, Network Manager, and quagga are installed
-  yum:
-    name:
-      - libreswan
-      - NetworkManager
-      - quagga
+# These tasks were configured based on the official documentation published
+# by Red Hat for "Securing Virtual Private Networks (VPNs) Using Libreswan."
+# https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/sec-securing_virtual_private_networks#sec-IPsec_VPN_Using_Libreswan
+# --@jdrowne 2020-10-12
+- block:
+  - name: Ensuring Libreswan, Network Manager, and quagga are installed
+    yum:
+      name:
+        - libreswan
+        - NetworkManager
+        - quagga
+    become: true
+
+  - name: Stopping the ipsec service
+    systemd:
+      name: ipsec
+      state: stopped
+    become: true
+
+  - name: Deleting the old Network Security Services (NSS) database
+    shell: rm -rfv /etc/ipsec.d/*db
+    become: true
+    warn: false
+
+  - name: Initializing the NSS database in FIPS mode
+    block:
+      - name: Checking that password file was provided
+        assert:
+          that:
+            bootstrap_vpn_gateway_centos_password_file is defined and
+            bootstrap_vpn_gateway_centos_password_file | length > 0 and
+            bootstrap_vpn_gateway_centos_password_file != None
+          fail_msg: >
+            Variable `bootstrap_vpn_gateway_centos_password_file` must be provided
+            and properly defined
+          success_msg: >
+            Required variable `bootstrap_vpn_gateway_centos_password_file` is
+            properly defined
+
+      - name: Encrypting the keys used for the NSS database
+        shell: "certutil -N -d sql:/etc/ipsec.d -f {{ bootstrap_vpn_gateway_centos_password_file }}"
+        become: true
+    when: bootstrap_vpn_gateway_centos_fips_is_enabled
+
+  - name: Initializing the NSS database in non-FIPS mode
+    shell: ipsec initnss
+    when: not bootstrap_vpn_gateway_centos_fips_is_enabled
+
+  - name: Starting the ipsec service and ensuring that it starts on boot
+    systemd:
+      name: ipsec
+      state: started
+      enabled: true
+
   become: true
