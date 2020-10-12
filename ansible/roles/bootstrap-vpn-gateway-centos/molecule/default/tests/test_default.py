@@ -1,10 +1,13 @@
 """Role testing files using testinfra."""
 
 
-def test_hosts_file(host):
-    """Validate /etc/hosts file."""
-    f = host.file("/etc/hosts")
+def test_libreswan_is_installed(host):
+    host.package('libreswan').is_installed
 
-    assert f.exists
-    assert f.user == "root"
-    assert f.group == "root"
+
+def test_network_manager_is_installed(host):
+    host.package('NetworkManager').is_installed
+
+
+def test_quagga_is_installed(host):
+    host.package('quagga').is_installed
