@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include bootstrap-vpn-gateway-centos"
+      include_role:
+        name: "bootstrap-vpn-gateway-centos"
