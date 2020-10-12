@@ -1,0 +1,25 @@
+---
+- name: Failing if the operating system is not Ubuntu 16.04
+  fail:
+    msg: "This Ansible role can only be run against Ubuntu 16.04 systems. {{ ansible_distribution }} {{ ansible_distribution_major_version }} is not supported."
+  when:
+    - not ansible_distribution == "Ubuntu"
+    - not ansible_distribution_release == "xenial"
+
+- name: Applying Section 1 recommendations
+  include_tasks: section-1.yml
+
+# - name: Applying Section 2 recommendations
+#   include_tasks: section2.yml
+#
+# - name: Applying Section 3 recommendations
+#   include_tasks: section3.yml
+#
+# - name: Applying Section 4 recommendations
+#   include_tasks: section4.yml
+#
+# - name: Applying Section 5 recommendations
+#   include_tasks: section5.yml
+#
+# - name: Applying Section 6 recommendations
+#   include_tasks: section6.yml

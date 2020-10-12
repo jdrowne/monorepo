@@ -1,0 +1,33 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+lint:
+  name: yamllint
+platforms:
+  - name: ubuntu1604
+    box: ubuntu/xenial64
+    memory: 2048
+    cpus: 2
+    provider_raw_config_args:
+    - "customize [ 'modifyvm', :id, '--uartmode1', 'disconnected' ]"
+    tmpfs:
+      - /tmp
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+verifier:
+  name: testinfra
+  options:
+    verbose: true
+  lint:
+    name: flake8
+    options:
+      # E111: ignore PEP8 tab length of four
+      # F401: https://lintlyci.github.io/Flake8Rules/rules/F401.html
+      # F403: https://lintlyci.github.io/Flake8Rules/rules/F403.html
+      ignore: E111, F401, F403

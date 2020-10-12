@@ -1,0 +1,2 @@
+---
+apply_cis_benchmarks_modprobe_conf: /etc/modprobe.d/CIS.conf

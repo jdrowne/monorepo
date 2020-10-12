@@ -1,0 +1,6 @@
+---
+- name: Applying Section 1.6.1 recommendations
+  include_tasks: section-1.6.1.yml
+
+- name: Applying Section 1.6.2 recommendations
+  include_tasks: section-1.6.2.yml

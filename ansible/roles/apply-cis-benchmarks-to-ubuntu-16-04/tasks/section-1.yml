@@ -1,0 +1,24 @@
+---
+- name: Applying Section 1.1 recommendations
+  include_tasks: section-1.1.yml
+
+# - name: Applying Section 1.2 recommendations
+#   include_tasks: section-1.2.yml
+#
+# - name: Applying Section 1.3 recommendations
+#   include_tasks: section-1.3.yml
+#
+# - name: Applying Section 1.4 recommendations
+#   include_tasks: section-1.4.yml
+#
+# - name: Applying Section 1.5 recommendations
+#   include_tasks: section-1.5.yml
+#
+# - name: Applying Section 1.6 recommendations
+#   include_tasks: section-1.6.yml
+#
+# - name: Applying Section 1.7 recommendations
+#   include_tasks: section-1.7.yml
+#
+# - name: Applying Section 1.8 recommendations
+#   include_tasks: section-1.8.yml
