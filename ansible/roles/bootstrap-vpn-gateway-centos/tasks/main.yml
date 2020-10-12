@@ -1,2 +1,8 @@
 ---
-# tasks file for bootstrap-vpn-gateway-centos
+- name: Ensuring Libreswan, Network Manager, and quagga are installed
+  yum:
+    name:
+      - libreswan
+      - NetworkManager
+      - quagga
+  become: true
