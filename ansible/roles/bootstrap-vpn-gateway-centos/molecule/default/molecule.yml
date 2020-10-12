@@ -3,9 +3,30 @@ dependency:
   name: galaxy
 driver:
   name: vagrant
+  provider:
+    name: virtualbox
 platforms:
-  - name: instance
+  - name: centos
+    box: centos/7
+    box_version: 1905.01
+    memory: 8192
+    cpus: 2
 provisioner:
   name: ansible
+scenario:
+  test_sequence:
+    - dependency
+    - lint
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    - side_effect
+    - verify
+    - cleanup
+    - destroy
 verifier:
   name: testinfra
+  verbose: true
