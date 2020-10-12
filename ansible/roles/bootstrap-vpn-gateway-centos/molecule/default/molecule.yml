@@ -29,4 +29,5 @@ scenario:
     - destroy
 verifier:
   name: testinfra
-  verbose: true
+  options:
+    verbose: true
