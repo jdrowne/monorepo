@@ -1,2 +1,2 @@
 ---
-# defaults file for bootstrap-vpn-gateway-centos
+bootstrap_vpn_gateway_centos_fips_is_enabled: false
