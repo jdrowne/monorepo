@@ -21,7 +21,8 @@
   - name: Deleting the old Network Security Services (NSS) database
     shell: rm -rfv /etc/ipsec.d/*db
     become: true
-    warn: false
+    args:
+      warn: false
 
   - name: Initializing the NSS database in FIPS mode
     block:
