@@ -157,29 +157,29 @@ digraph G {
 		style = filled
 	];
         
-        MAD_2104 -> COP_3530
+        MAD_2104  -> COP_3530
         
-        MAT_1033 -> MAC_1105
+        MAT_1033  -> MAC_1105
         
         CDA_3201C -> CDA_3331C
         CDA_3331C -> CNT_4104
-        CDA_3203 -> CDA_4102
+        CDA_3203  -> CDA_4102
         
-        COP_2220 -> CDA_3201C
-        COP_2220 -> CDA_3331C
-        COP_2220 -> CDA_4102
-        COP_2220 -> COP_3014
-        COP_2220 -> COP_3530
-        COP_3014 -> COP_3530
-        COP_3530 -> CNT_4104
+        COP_2220  -> CDA_3201C
+        COP_2220  -> CDA_3331C
+        COP_2220  -> CDA_4102
+        COP_2220  -> COP_3014
+        COP_2220  -> COP_3530
+        COP_3014  -> COP_3530
+        COP_3530  -> CNT_4104
         
-        MAC_1105 -> MAC_1114
-        MAC_1105 -> MAC_1140
-        MAC_1105 -> MAD_2104
-        MAC_1114 -> MAC_2311
-        MAC_1140 -> MAC_2311
-        MAC_2311 -> MAC_2312
-        MAC_2312 -> EEE_4541
+        MAC_1105  -> MAC_1114
+        MAC_1105  -> MAC_1140
+        MAC_1105  -> MAD_2104
+        MAC_1114  -> MAC_2311
+        MAC_1140  -> MAC_2311
+        MAC_2311  -> MAC_2312
+        MAC_2312  -> EEE_4541
     }
     
     subgraph cluster_1 {
@@ -195,25 +195,25 @@ digraph G {
         
         COP_6819
         
-        CDA_6155 -> CDA_6132 [style = "dashed"]
-        CDA_6155 -> CDA_6316 [style = "dashed"]
-        CDA_6316 -> CNT_6108 [style = "dashed"]
+        CDA_6155  -> CDA_6132 [style = "dashed"]
+        CDA_6155  -> CDA_6316 [style = "dashed"]
+        CDA_6316  -> CNT_6108 [style = "dashed"]
         
-        EEL_6532 -> COP_6731 [style = "dashed"]
+        EEL_6532  -> COP_6731 [style = "dashed"]
     }
     
     CDA_3201C -> CDA_6316
     CDA_3331C -> CDA_6316
-    CDA_4102 -> CDA_6155
+    CDA_4102  -> CDA_6155
     
-    CNT_4104 -> CNT_6516
+    CNT_4104  -> CNT_6516
     
-    COP_2220 -> CDA_6316
-    COP_2220 -> COP_6731
-    COP_2220 -> COP_6819
-    COP_3530 -> CNT_6108
+    COP_2220  -> CDA_6316
+    COP_2220  -> COP_6731
+    COP_2220  -> COP_6819
+    COP_3530  -> CNT_6108
     
-    EEE_4541 -> EEL_6532
+    EEE_4541  -> EEL_6532
     
-    MAD_2104 -> CDA_5326
+    MAD_2104  -> CDA_5326
 }
