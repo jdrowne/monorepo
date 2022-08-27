@@ -148,12 +148,14 @@ digraph G {
     ]
     
     subgraph cluster_0 {
-        
         color = lightgrey
         label = "Pre-Requisites"
         style = filled
         
-        node [style=filled,color=white];
+        node [
+		color = white,
+		style = filled
+	];
         
         MAD_2104 -> COP_3530
         
@@ -190,7 +192,6 @@ digraph G {
         CDA_6155
         
         CNT_6516
-        
         
         COP_6819
         
