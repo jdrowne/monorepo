@@ -1,0 +1,15 @@
+CAP 6010 Multimedia Systems
+CDA 5326 Cryptographic Engineering
+CDA 6122 Evaluation of Parallel and Distributed Systems
+CDA 6132 Multiprocessor Architecture
+CDA 6214 Structured VLSI Design
+CDA 6316 Embedded Systems Design
+CIS 5371 Practical Aspects of Modern Cryptography
+CNT 5008 Computer Networks
+CNT 6108 Embedded Network Sensor Systems
+CNT 6516 Advanced Computer Networking
+CNT 6885 Video Communication
+COP 6731 Theory and Implementation of Database Systems
+COT 6405 Analysis of Algorithms
+COT 6930 Emerging Multimedia Technologies
+MAP 6264 Queueing Theory
