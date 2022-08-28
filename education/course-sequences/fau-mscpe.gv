@@ -227,6 +227,8 @@ digraph G {
         CDA_6155  -> CDA_6316 [style = "dashed"]
         CDA_6316  -> CNT_6108 [style = "dashed"]
         
+        CNT_6516  -> CNT_6108 [style = "dashed"]
+        
         EEL_6532  -> COP_6731 [style = "dashed"]
     }
     
