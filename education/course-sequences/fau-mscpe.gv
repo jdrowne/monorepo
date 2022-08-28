@@ -100,6 +100,30 @@ digraph G {
         style = filled
     ]
     
+    EEL_3111 [
+        color = white,
+        label = "EEL 3111: Circuits I",
+        style = filled
+    ]
+    
+    EEL_3112 [
+        color = white,
+        label = "EEL 3112: Circuits II",
+        style = filled
+    ]
+    
+    EEL_4512 [
+        color = white,
+        label = "EEL 4512: Communication Systems",
+        style = filled
+    ]
+    
+    EEL_4656 [
+        color = white,
+        label = "EEL 4656: Analysis of Linear Systems",
+        style = filled
+    ]
+    
     EEL_6532 [
         label = "EEL 6532: Information Theory",
         style = filled
@@ -153,13 +177,9 @@ digraph G {
         style = filled
         
         node [
-		color = white,
-		style = filled
-	];
-        
-        MAD_2104  -> COP_3530
-        
-        MAT_1033  -> MAC_1105
+            color = white,
+            style = filled
+	    ];
         
         CDA_3201C -> CDA_3331C
         CDA_3331C -> CNT_4104
@@ -172,6 +192,10 @@ digraph G {
         COP_2220  -> COP_3530
         COP_3014  -> COP_3530
         COP_3530  -> CNT_4104
+
+        EEL_3111  -> EEL_3112
+        EEL_3112  -> EEL_4656
+        EEL_4656  -> EEL_4512
         
         MAC_1105  -> MAC_1114
         MAC_1105  -> MAC_1140
@@ -180,6 +204,11 @@ digraph G {
         MAC_1140  -> MAC_2311
         MAC_2311  -> MAC_2312
         MAC_2312  -> EEE_4541
+        MAC_2312  -> EEL_3111
+        
+        MAD_2104  -> COP_3530
+        
+        MAT_1033  -> MAC_1105
     }
     
     subgraph cluster_1 {
@@ -199,6 +228,8 @@ digraph G {
         CDA_6155  -> CDA_6316 [style = "dashed"]
         CDA_6316  -> CNT_6108 [style = "dashed"]
         
+        CNT_6516  -> CNT_6108 [style = "dashed"]
+        
         EEL_6532  -> COP_6731 [style = "dashed"]
     }
     
@@ -214,6 +245,8 @@ digraph G {
     COP_3530  -> CNT_6108
     
     EEE_4541  -> EEL_6532
+
+    EEL_4512  -> EEL_6532
     
     MAD_2104  -> CDA_5326
 }
