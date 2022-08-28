@@ -106,6 +106,12 @@ digraph G {
         style = filled
     ]
     
+    EEL_4656 [
+        color = white,
+        label = "EEL 4656: Analysis of Linear Systems",
+        style = filled
+    ]
+    
     EEL_6532 [
         label = "EEL 6532: Information Theory",
         style = filled
@@ -162,8 +168,6 @@ digraph G {
             color = white,
             style = filled
 	    ];
-
-        EEL_4512
         
         CDA_3201C -> CDA_3331C
         CDA_3331C -> CNT_4104
@@ -176,6 +180,8 @@ digraph G {
         COP_2220  -> COP_3530
         COP_3014  -> COP_3530
         COP_3530  -> CNT_4104
+
+        EEL_4656 -> EEL_4512
         
         MAC_1105  -> MAC_1114
         MAC_1105  -> MAC_1140
