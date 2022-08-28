@@ -204,6 +204,7 @@ digraph G {
         MAC_1140  -> MAC_2311
         MAC_2311  -> MAC_2312
         MAC_2312  -> EEE_4541
+        MAC_2312  -> EEL_3111
         
         MAD_2104  -> COP_3530
         
