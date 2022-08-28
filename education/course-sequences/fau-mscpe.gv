@@ -187,7 +187,7 @@ digraph G {
         COP_3014  -> COP_3530
         COP_3530  -> CNT_4104
 
-        EEL_3112  -> EEL_4556
+        EEL_3112  -> EEL_4656
         EEL_4656  -> EEL_4512
         
         MAC_1105  -> MAC_1114
