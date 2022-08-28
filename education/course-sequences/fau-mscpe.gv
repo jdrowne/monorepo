@@ -94,12 +94,6 @@ digraph G {
         style = filled
     ]
     
-    EEE_4512 [
-        color = white,
-        label = "EEE 4512: ",
-        style = filled
-    ]
-    
     EEE_4541 [
         color = white,
         label = "EEE 4541: Stochastic Processes and Random Signals",
@@ -115,6 +109,12 @@ digraph G {
     EEL_3112 [
         color = white,
         label = "EEL 3112: Circuits II",
+        style = filled
+    ]
+    
+    EEL_4512 [
+        color = white,
+        label = "EEL 4512: Communication Systems",
         style = filled
     ]
     
