@@ -106,15 +106,21 @@ digraph G {
         style = filled
     ]
     
-    EEL_4656 [
+    EEL_3111 [
         color = white,
-        label = "EEL 4656: Analysis of Linear Systems",
+        label = "EEL 3111: Circuits I",
         style = filled
     ]
     
     EEL_3112 [
         color = white,
         label = "EEL 3112: Circuits II",
+        style = filled
+    ]
+    
+    EEL_4656 [
+        color = white,
+        label = "EEL 4656: Analysis of Linear Systems",
         style = filled
     ]
     
@@ -187,6 +193,7 @@ digraph G {
         COP_3014  -> COP_3530
         COP_3530  -> CNT_4104
 
+        EEL_3111  -> EEL_3112
         EEL_3112  -> EEL_4656
         EEL_4656  -> EEL_4512
         
