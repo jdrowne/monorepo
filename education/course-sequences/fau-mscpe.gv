@@ -112,6 +112,12 @@ digraph G {
         style = filled
     ]
     
+    EEL_3112 [
+        color = white,
+        label = "EEL 3112: Circuits II",
+        style = filled
+    ]
+    
     EEL_6532 [
         label = "EEL 6532: Information Theory",
         style = filled
@@ -181,7 +187,8 @@ digraph G {
         COP_3014  -> COP_3530
         COP_3530  -> CNT_4104
 
-        EEL_4656 -> EEL_4512
+        EEL_3112  -> EEL_4556
+        EEL_4656  -> EEL_4512
         
         MAC_1105  -> MAC_1114
         MAC_1105  -> MAC_1140
