@@ -1,0 +1,109 @@
+digraph G {
+    MAC_1105 [
+        fillcolor = white,
+        label = "MAC 1105: College Algebra",
+        style = filled
+    ]
+    
+    MAC_1114 [
+        fillcolor = white,
+        label = "MAC 1114: Trigonometry",
+        style = filled
+    ]
+    
+    MAC_1140 [
+        fillcolor = white,
+        label = "MAC 1140: Precalculus Algebra",
+        style = filled
+    ]
+
+    MAC_2311 [
+        fillcolor = white,
+        label = "MAC 2311: Calculus with Analytic Geometry 1",
+        style = filled
+    ]
+    
+    MAC_2312 [
+        fillcolor = white,
+        label = "MAC 2312: Calculus with Analytic Geometry 2",
+        style = filled
+    ]
+    
+    MAC_2313 [
+        fillcolor = white,
+        label = "MAC 2313: Calculus with Analytic Geometry 3",
+        style = filled
+    ]
+    
+    MAP_3305 [
+        fillcolor = white,
+        label = "MAP 3305: Engineering Math 1",
+        style = filled
+    ]
+
+    MAT_1033 [
+        fillcolor = white,
+        label = "MAT 1033: Intermediate Algebra",
+        style = filled
+    ]
+
+    subgraph cluster_0 {
+        color = invis
+        
+        subgraph cluster_0 {
+            color = lightgrey
+            label = "Mathematics: Pre-Requisites"
+            style = filled
+            
+            node [
+                color = white,
+                style = filled
+            ]
+
+            MAC_1105  -> MAC_1114
+            MAC_1105  -> MAC_1140
+
+            MAT_1033  -> MAC_1105
+        }
+
+        subgraph cluster_1 {
+            color = lightgrey
+            label = "Mathematics: 15 credits"
+            style = filled
+            
+            node [
+                color = white,
+                style = filled
+            ]
+
+            MAC_2311  -> MAC_2312
+            MAC_2312  -> MAC_2313
+            MAC_2312  -> MAP_3305
+        }
+
+        MAC_1114  -> MAC_2311
+        MAC_1140  -> MAC_2311
+    }
+
+    subgraph cluster_1 {
+        color = lightgrey
+        label = "Science: 9 credits"
+        style = filled
+        
+        node [
+            color = white,
+            style = filled
+        ]
+    }
+
+    subgraph cluster_2 {
+        color = lightgrey
+        label = "Core Courses: 60 credits"
+        style = filled
+        
+        node [
+            color = white,
+            style = filled
+        ]
+    }
+}
