@@ -17,6 +17,18 @@ digraph G {
         style = filled
     ]
     
+    CDA_4240C [
+        fillcolor = white,
+        label = "CDA 4240C: Design of Digital Systems and Lab",
+        style = filled
+    ]
+    
+    CDA_4630 [
+        fillcolor = white,
+        label = "CDA 4630: Introduction to Embedded System Design",
+        style = filled
+    ]
+    
     CEN_4010 [
         fillcolor = white,
         label = "CEN 4010: Principles of Software Engineering",
@@ -56,6 +68,36 @@ digraph G {
     COT_2000 [
         fillcolor = white,
         label = "COT 2000: Foundations of Computing ",
+        style = filled
+    ]
+    
+    EEE_3300 [
+        fillcolor = white,
+        label = "EEE 3300: Electronics 1",
+        style = filled
+    ]
+    
+    EEL_3111 [
+        fillcolor = white,
+        label = "EEL 3111: Circuits 1",
+        style = filled
+    ]
+    
+    EEL_3118L [
+        fillcolor = white,
+        label = "EEL 3118L: Electronics Laboratory 1",
+        style = filled
+    ]
+    
+    EEL_3502 [
+        fillcolor = white,
+        label = "EEL 3502: Signals and Digital Filter Design",
+        style = filled
+    ]
+    
+    EGN_1002 [
+        fillcolor = white,
+        label = "EGN 1002: Fundamentals of Engineering",
         style = filled
     ]
     
@@ -251,6 +293,47 @@ digraph G {
             COP_3014
             
             COP_4610
+        }
+
+        subgraph cluster_2 {
+            color = lightgrey
+            label = "Electrical Engineering Core: 18 credits"
+            style = filled
+
+            node [
+                color = white,
+                style = filled
+            ]
+
+            CDA_3203  -> CDA_4240C
+
+            EEE_3300  -> EEL_3118L
+
+            EEL_3111  -> EEE_3300
+
+            EGN_1002  -> EEL_3111
+
+            MAC_2312  -> EEL_3502
+            MAC_2313  -> EEL_3111
+
+            MAP_3305  -> EEL_3111
+
+            PHY_2044  -> EEL_3111
+        }
+
+        subgraph cluster_3 {
+            color = lightgrey
+            label = "Computer Engineering Core: 3 credits"
+            style = filled
+
+            node [
+                color = white,
+                style = filled
+            ]
+
+            CDA_3203  -> CDA_4630
+
+            EEL_3118L -> CDA_4630
         }
 
         CEN_4010  -> EGN_4950C
