@@ -17,15 +17,57 @@ digraph G {
         style = filled
     ]
     
+    CEN_4010 [
+        fillcolor = white,
+        label = "CEN 4010: Principles of Software Engineering",
+        style = filled
+    ]
+    
+    CNT_4007 [
+        fillcolor = white,
+        label = "CNT 4007: Communication Networks",
+        style = filled
+    ]
+    
     COP_2220 [
         fillcolor = white,
         label = "COP 2220: Programming 1",
         style = filled
     ]
     
+    COP_3014 [
+        fillcolor = white,
+        label = "COP 3014: Programming 2",
+        style = filled
+    ]
+    
+    COP_3530 [
+        fillcolor = white,
+        label = "COP 3530: Data Structures and Algorithm Analysis",
+        style = filled
+    ]
+    
+    COP_4610 [
+        fillcolor = white,
+        label = "COP 4610: Computer Operating Systems",
+        style = filled
+    ]
+    
     COT_2000 [
         fillcolor = white,
         label = "COT 2000: Foundations of Computing ",
+        style = filled
+    ]
+    
+    EGN_4950C [
+        fillcolor = white,
+        label = "EGN 4950C: RI: Engineering Design 1",
+        style = filled
+    ]
+    
+    EGN_4952C [
+        fillcolor = white,
+        label = "EGN 4952C: RI: Engineering Design 2",
         style = filled
     ]
     
@@ -71,6 +113,12 @@ digraph G {
         style = filled
     ]
     
+    MAD_2104 [
+        fillcolor = white,
+        label = "MAD 2104: Discrete Mathematics",
+        style = filled
+    ]
+    
     MAP_3305 [
         fillcolor = white,
         label = "MAP 3305: Engineering Math 1",
@@ -112,7 +160,7 @@ digraph G {
 
         subgraph cluster_0 {
             color = lightgrey
-            label = "Mathematics: Pre-Requisites"
+            label = "Pre-Requisites: 12 credits"
             style = filled
             
             node [
@@ -122,6 +170,7 @@ digraph G {
 
             MAC_1105  -> MAC_1114
             MAC_1105  -> MAC_1140
+            MAC_1105  -> MAD_2104
 
             MAT_1033  -> MAC_1105
         }
@@ -180,10 +229,41 @@ digraph G {
             COP_2220  -> CDA_4102
             
             EEE_4541  -> CAP_4773
+            EEE_4541  -> EGN_4950C
+
+            EGN_4950C -> EGN_4952C
         }
+
+        subgraph cluster_1 {
+            color = lightgrey
+            label = "Computer Science Core: 15 credits"
+            style = filled
+
+            node [
+                color = white,
+                style = filled
+            ]
+
+            COP_3530  -> CEN_4010
+            COP_3530  -> CNT_4007
+            COP_3530  -> COP_4610
+
+            COP_3014
+            
+            COP_4610
+        }
+
+        CEN_4010  -> EGN_4950C
+
+        COP_2220  -> COP_3014
+        COP_2220  -> COP_3530
+
+        COT_2000  -> COP_3530
     }
 
     MAC_2311  -> PHY_2048
     MAC_2312  -> EEE_4541
     MAC_2312  -> PHY_2044
+
+    MAD_2104  -> COP_3530
 }
