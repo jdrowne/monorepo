@@ -6,13 +6,13 @@ digraph G {
     ]
     
     CDA_3203 [
-        fillcolor = white,
+        fillcolor = red,
         label = "CDA 3203: Computer Logic Design",
         style = filled
     ]
     
     CDA_4102 [
-        fillcolor = white,
+        fillcolor = red,
         label = "CDA 4102: Computer Architecture",
         style = filled
     ]
@@ -36,13 +36,13 @@ digraph G {
     ]
     
     CNT_4007 [
-        fillcolor = white,
+        fillcolor = red,
         label = "CNT 4007: Communication Networks",
         style = filled
     ]
     
     COP_2220 [
-        fillcolor = white,
+        fillcolor = yellow,
         label = "COP 2220: Programming 1",
         style = filled
     ]
@@ -54,19 +54,19 @@ digraph G {
     ]
     
     COP_3530 [
-        fillcolor = white,
+        fillcolor = red,
         label = "COP 3530: Data Structures and Algorithm Analysis",
         style = filled
     ]
     
     COP_4610 [
-        fillcolor = white,
+        fillcolor = red,
         label = "COP 4610: Computer Operating Systems",
         style = filled
     ]
     
     COT_2000 [
-        fillcolor = white,
+        fillcolor = yellow,
         label = "COT 2000: Foundations of Computing ",
         style = filled
     ]
@@ -120,7 +120,7 @@ digraph G {
     ]
 
     MAC_1105 [
-        fillcolor = white,
+        fillcolor = yellow,
         label = "MAC 1105: College Algebra",
         style = filled
     ]
@@ -156,7 +156,7 @@ digraph G {
     ]
     
     MAD_2104 [
-        fillcolor = white,
+        fillcolor = red,
         label = "MAD 2104: Discrete Mathematics",
         style = filled
     ]
@@ -168,7 +168,7 @@ digraph G {
     ]
 
     MAT_1033 [
-        fillcolor = white,
+        fillcolor = yellow,
         label = "MAT 1033: Intermediate Algebra",
         style = filled
     ]
