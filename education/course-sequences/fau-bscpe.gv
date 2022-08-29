@@ -1,4 +1,40 @@
 digraph G {
+    CAP_4773 [
+        fillcolor = white,
+        label = "CAP 4773: Introduction to Data Science and Analytics",
+        style = filled
+    ]
+    
+    CDA_3203 [
+        fillcolor = white,
+        label = "CDA 3203: Computer Logic Design",
+        style = filled
+    ]
+    
+    CDA_4102 [
+        fillcolor = white,
+        label = "CDA 4102: Computer Architecture",
+        style = filled
+    ]
+    
+    COP_2220 [
+        fillcolor = white,
+        label = "COP 2220: Programming 1",
+        style = filled
+    ]
+    
+    COT_2000 [
+        fillcolor = white,
+        label = "COT 2000: Foundations of Computing ",
+        style = filled
+    ]
+    
+    EEE_4541 [
+        fillcolor = white,
+        label = "EEE 4541: Stochastic Processes and Random Signals",
+        style = filled
+    ]
+
     MAC_1105 [
         fillcolor = white,
         label = "MAC 1105: College Algebra",
@@ -47,9 +83,33 @@ digraph G {
         style = filled
     ]
 
+    PHY_2048 [
+        fillcolor = white,
+        label = "PHY 2048: General Physics for Engineers 1",
+        style = filled
+    ]
+
+    PHY_2048L [
+        fillcolor = white,
+        label = "PHY 2048L: General Physics Lab 1",
+        style = filled
+    ]
+
+    PHY_2044 [
+        fillcolor = white,
+        label = "PHY 2044: Physics for Engineers 2",
+        style = filled
+    ]
+
+    PHY_2049L [
+        fillcolor = white,
+        label = "PHY 2048: General Physics Lab 2",
+        style = filled
+    ]
+
     subgraph cluster_0 {
         color = invis
-        
+
         subgraph cluster_0 {
             color = lightgrey
             label = "Mathematics: Pre-Requisites"
@@ -94,16 +154,36 @@ digraph G {
             color = white,
             style = filled
         ]
+
+        PHY_2048  -> PHY_2048L
+        PHY_2048L -> PHY_2044
+        PHY_2044  -> PHY_2049L
     }
 
     subgraph cluster_2 {
-        color = lightgrey
         label = "Core Courses: 60 credits"
-        style = filled
         
-        node [
-            color = white,
+        subgraph cluster_0 {
+            color = lightgrey
+            label = "Common Core: 24 credits"
             style = filled
-        ]
+
+            node [
+                color = white,
+                style = filled
+            ]
+
+            COT_2000
+
+            CDA_3203  -> CDA_4102
+            
+            COP_2220  -> CDA_4102
+            
+            EEE_4541  -> CAP_4773
+        }
     }
+
+    MAC_2311  -> PHY_2048
+    MAC_2312  -> EEE_4541
+    MAC_2312  -> PHY_2044
 }
