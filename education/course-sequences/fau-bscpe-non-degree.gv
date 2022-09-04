@@ -1,7 +1,19 @@
 digraph G {
+    CDA_3201C [
+        fillcolor = white,
+        label = "CDA 3201C: Introduction to Logic Design",
+        style = filled
+    ]
+
     CDA_3203 [
         fillcolor = white,
         label = "CDA 3203: Computer Logic Design",
+        style = filled
+    ]
+    
+    CDA_3331C [
+        fillcolor = white,
+        label = "CDA 3331C: Introduction to Microprocessor Systems",
         style = filled
     ]
     
@@ -14,6 +26,12 @@ digraph G {
     CNT_4007 [
         fillcolor = white,
         label = "CNT 4007: Communication Networks",
+        style = filled
+    ]
+    
+    CNT_4104 [
+        fillcolor = white,
+        label = "CNT 4104: Introduction to Data Communications",
         style = filled
     ]
     
@@ -141,4 +159,11 @@ digraph G {
 
         COT_2000  -> COP_3530
     }
+    
+    CDA_3201C -> CDA_3203 [style = "dashed"]
+    CDA_3201C -> CDA_3331C
+
+    COP_2220  -> CDA_3201C
+    COP_2220  -> CDA_3331C
+    COP_3530  -> CNT_4104
 }
