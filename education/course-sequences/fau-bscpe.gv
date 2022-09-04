@@ -48,7 +48,7 @@ digraph G {
     ]
     
     COP_3014 [
-        fillcolor = white,
+        fillcolor = yellow,
         label = "COP 3014: Programming 2",
         style = filled
     ]
@@ -340,6 +340,7 @@ digraph G {
 
         COP_2220  -> COP_3014
         COP_2220  -> COP_3530
+        COP_3014  -> COP_3530
 
         COT_2000  -> COP_3530
     }
