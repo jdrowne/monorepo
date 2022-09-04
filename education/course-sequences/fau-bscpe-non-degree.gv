@@ -1,0 +1,144 @@
+digraph G {
+    CDA_3203 [
+        fillcolor = white,
+        label = "CDA 3203: Computer Logic Design",
+        style = filled
+    ]
+    
+    CDA_4102 [
+        fillcolor = white,
+        label = "CDA 4102: Computer Architecture",
+        style = filled
+    ]
+    
+    CNT_4007 [
+        fillcolor = white,
+        label = "CNT 4007: Communication Networks",
+        style = filled
+    ]
+    
+    COP_2220 [
+        fillcolor = white,
+        label = "COP 2220: Programming 1",
+        style = filled
+    ]
+    
+    COP_3014 [
+        fillcolor = white,
+        label = "COP 3014: Programming 2",
+        style = filled
+    ]
+    
+    COP_3530 [
+        fillcolor = white,
+        label = "COP 3530: Data Structures and Algorithm Analysis",
+        style = filled
+    ]
+    
+    COP_4610 [
+        fillcolor = white,
+        label = "COP 4610: Computer Operating Systems",
+        style = filled
+    ]
+    
+    COT_2000 [
+        fillcolor = white,
+        label = "COT 2000: Foundations of Computing ",
+        style = filled
+    ]
+
+    MAC_1105 [
+        fillcolor = white,
+        label = "MAC 1105: College Algebra",
+        style = filled
+    ]
+    
+    MAD_2104 [
+        fillcolor = white,
+        label = "MAD 2104: Discrete Mathematics",
+        style = filled
+    ]
+
+    MAT_1033 [
+        fillcolor = white,
+        label = "MAT 1033: Intermediate Algebra",
+        style = filled
+    ]
+
+    subgraph cluster_0 {
+        color = invis
+
+        subgraph cluster_0 {
+            color = lightgrey
+            label = "Pre-Requisites"
+            style = filled
+            
+            node [
+                color = white,
+                style = filled
+            ]
+
+            MAC_1105  -> MAD_2104
+
+            MAT_1033  -> MAC_1105
+        }
+    }
+
+    subgraph cluster_1 {
+        label = "Core Courses"
+        
+        subgraph cluster_0 {
+            color = lightgrey
+            label = "Common Core"
+            style = filled
+
+            node [
+                color = white,
+                style = filled
+            ]
+
+            COT_2000
+
+            CDA_3203  -> CDA_4102
+            
+            COP_2220  -> CDA_4102
+        }
+
+        subgraph cluster_1 {
+            color = lightgrey
+            label = "Computer Science Core"
+            style = filled
+
+            node [
+                color = white,
+                style = filled
+            ]
+
+            COP_3530  -> CNT_4007
+            COP_3530  -> COP_4610
+
+            COP_3014
+            
+            COP_4610
+
+            MAD_2104  -> COP_3530
+        }
+
+        subgraph cluster_2 {
+            color = lightgrey
+            label = "Computer Engineering Core"
+            style = filled
+
+            node [
+                color = white,
+                style = filled
+            ]
+        }
+
+        COP_2220  -> COP_3014
+        COP_2220  -> COP_3530
+        COP_3014  -> COP_3530
+
+        COT_2000  -> COP_3530
+    }
+}
