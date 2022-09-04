@@ -163,6 +163,8 @@ digraph G {
     CDA_3201C -> CDA_3203 [style = "dashed"]
     CDA_3201C -> CDA_3331C
 
+    CNT_4007  -> CNT_4104 [style = "dashed"]
+
     COP_2220  -> CDA_3201C
     COP_2220  -> CDA_3331C
     COP_3530  -> CNT_4104
