@@ -1,7 +1,25 @@
-digraph G {
+digraph G {    
+    CAP_6010 [
+        fillcolor = white,
+        label = "CAP 6010: Multimedia Systems",
+        style = filled
+    ]
+    
+    CDA_3201C [
+        fillcolor = white,
+        label = "CDA 3201C: Introduction to Logic Design",
+        style = filled
+    ]
+    
     CDA_3203 [
         fillcolor = white,
         label = "CDA 3203: Computer Logic Design",
+        style = filled
+    ]
+    
+    CDA_3331C [
+        fillcolor = white,
+        label = "CDA 3331C: Introduction to Microprocessor Systems",
         style = filled
     ]
     
@@ -11,9 +29,45 @@ digraph G {
         style = filled
     ]
     
-    CNT_4007 [
+    CDA_5326 [
         fillcolor = white,
-        label = "CNT 4007: Communication Networks",
+        label = "CDA 5326: Cryptographic Engineering",
+        style = filled
+    ]
+    
+    CDA_6132 [
+        fillcolor = white,
+        label = "CDA 6132: Multiprocessor Architecture",
+        style = filled
+    ]
+    
+    CDA_6316 [
+        fillcolor = white,
+        label = "CDA 6316: Embedded System Design 1",
+        style = filled
+    ]
+    
+    CDA_6155 [
+        fillcolor = white,
+        label = "CDA 6155: Advanced Computer Architecture",
+        style = filled
+    ]
+    
+    CNT_4104 [
+        fillcolor = white,
+        label = "CNT 4104: Introduction to Data Communications",
+        style = filled
+    ]
+    
+    CNT_6108 [
+        fillcolor = white,
+        label = "CNT 6108: Embedded Networked Sensor Systems",
+        style = filled
+    ]
+    
+    CNT_6516 [
+        fillcolor = white,
+        label = "CNT 6516: Advanced Computer Networking",
         style = filled
     ]
     
@@ -35,21 +89,81 @@ digraph G {
         style = filled
     ]
     
-    COP_4610 [
+    COP_6819 [
         fillcolor = white,
-        label = "COP 4610: Computer Operating Systems",
+        label = "COP 6819: Advanced Internet Systems",
         style = filled
     ]
     
-    COT_2000 [
+    COP_6731 [
         fillcolor = white,
-        label = "COT 2000: Foundations of Computing ",
+        label = "COP 6731: Theory and Implementation of Database Systems",
         style = filled
     ]
-
+    
+    EEE_4541 [
+        fillcolor = white,
+        label = "EEE 4541: Stochastic Processes and Random Signals",
+        style = filled
+    ]
+    
+    EEL_3111 [
+        fillcolor = white,
+        label = "EEL 3111: Circuits I",
+        style = filled
+    ]
+    
+    EEL_3112 [
+        fillcolor = white,
+        label = "EEL 3112: Circuits II",
+        style = filled
+    ]
+    
+    EEL_4512 [
+        fillcolor = white,
+        label = "EEL 4512: Communication Systems",
+        style = filled
+    ]
+    
+    EEL_4656 [
+        fillcolor = white,
+        label = "EEL 4656: Analysis of Linear Systems",
+        style = filled
+    ]
+    
+    EEL_6532 [
+        fillcolor = white,
+        label = "EEL 6532: Information Theory",
+        style = filled
+    ]
+    
     MAC_1105 [
         fillcolor = white,
         label = "MAC 1105: College Algebra",
+        style = filled
+    ]
+    
+    MAC_1114 [
+        fillcolor = white,
+        label = "MAC 1114: Trigonometry",
+        style = filled
+    ]
+    
+    MAC_1140 [
+        fillcolor = white,
+        label = "MAC 1140: Precalculus Algebra",
+        style = filled
+    ]
+    
+    MAC_2311 [
+        fillcolor = white,
+        label = "MAC 2311: Calculus with Analytic Geometry 1",
+        style = filled
+    ]
+    
+    MAC_2312 [
+        fillcolor = white,
+        label = "MAC 2312: Calculus with Analytic Geometry 2",
         style = filled
     ]
     
@@ -58,7 +172,7 @@ digraph G {
         label = "MAD 2104: Discrete Mathematics",
         style = filled
     ]
-
+    
     MAT_1033 [
         fillcolor = white,
         label = "MAT 1033: Intermediate Algebra",
@@ -66,83 +180,103 @@ digraph G {
     ]
 
     subgraph cluster_0 {
-        color = invis
+        color = lightgrey
+        label = "Mathematics"
+        style = filled
 
-        subgraph cluster_0 {
-            color = lightgrey
-            label = "Pre-Requisites"
-            style = filled
-            
-            node [
-                color = white,
-                style = filled
-            ]
-
-            MAC_1105  -> MAD_2104
-
-            MAT_1033  -> MAC_1105
-        }
+        MAC_1105  -> MAC_1114
+        MAC_1105  -> MAC_1140
+        MAC_1105  -> MAD_2104
+        
+        MAT_1033  -> MAC_1105
     }
 
     subgraph cluster_1 {
-        label = "Core Courses"
+        color = lightgrey
+        label = "Calculus"
+        style = filled
+
+        MAC_1114  -> MAC_2311
+        MAC_1140  -> MAC_2311
+        MAC_2311  -> MAC_2312
+    }
+
+    subgraph cluster_2 {
+        color = lightgrey
+        label = "Computer Engineering"
+        style = filled
+
+        CDA_3201C -> CDA_3331C
+        CDA_3331C -> CNT_4104
+        CDA_3203  -> CDA_4102
+    }
+
+    subgraph cluster_3 {
+        color = lightgrey
+        label = "Computer Science"
+        style = filled
         
-        subgraph cluster_0 {
-            color = lightgrey
-            label = "Common Core"
-            style = filled
-
-            node [
-                color = white,
-                style = filled
-            ]
-
-            COT_2000
-
-            CDA_3203  -> CDA_4102
-            
-            COP_2220  -> CDA_4102
-        }
-
-        subgraph cluster_1 {
-            color = lightgrey
-            label = "Computer Science Core"
-            style = filled
-
-            node [
-                color = white,
-                style = filled
-            ]
-
-            COP_3530  -> CNT_4007
-            COP_3530  -> COP_4610
-
-            COP_3014
-            
-            COP_4610
-
-            MAD_2104  -> COP_3530
-        }
-
-        subgraph cluster_2 {
-            color = lightgrey
-            label = "Computer Engineering Core"
-            style = filled
-
-            node [
-                color = white,
-                style = filled
-            ]
-        }
-        
-        CDA_4102  -> COP_4610 [style = "dashed"]
-        CDA_4102  -> CNT_4007 [style = "dashed"]
-
+        COP_2220  -> CDA_3201C
+        COP_2220  -> CDA_3331C
+        COP_2220  -> CDA_4102
         COP_2220  -> COP_3014
         COP_2220  -> COP_3530
         COP_3014  -> COP_3530
-        COP_3530  -> CDA_4102 [style = "dashed"]
-
-        COT_2000  -> COP_3530
+        COP_3530  -> CNT_4104
+        
+        MAD_2104  -> COP_3530
     }
+
+    subgraph cluster_4 {
+        color = lightgrey
+        label = "Electrical Engineering"
+        style = filled
+
+        EEL_3111  -> EEL_3112
+        EEL_3112  -> EEL_4656
+        EEL_4656  -> EEL_4512
+        
+        MAC_2312  -> EEE_4541
+        MAC_2312  -> EEL_3111
+    }
+    
+    subgraph cluster_5 {
+        color = lightgrey
+        label = "Graduate Courses"
+        style = filled
+        
+        CAP_6010
+        
+        CDA_5326
+        CDA_6155
+        
+        CNT_6516
+        
+        COP_6819
+        
+        CDA_6155  -> CDA_6132 [style = "dashed"]
+        CDA_6155  -> CDA_6316 [style = "dashed"]
+        CDA_6316  -> CNT_6108 [style = "dashed"]
+        
+        CNT_6516  -> CNT_6108 [style = "dashed"]
+        
+        EEL_6532  -> COP_6731 [style = "dashed"]
+    }
+    
+    CDA_3201C -> CDA_6316
+    CDA_3331C -> CDA_6316
+    CDA_4102  -> CDA_6155
+    
+    CNT_4104  -> CNT_6516
+    
+    COP_2220  -> CDA_6316
+    COP_2220  -> COP_6731
+    COP_2220  -> COP_6819
+    COP_3530  -> CNT_6108
+    
+    EEE_4541  -> EEL_6532
+
+    EEL_4512  -> EEL_6532
+    
+    MAD_2104  -> CDA_5326
 }
