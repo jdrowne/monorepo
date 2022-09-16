@@ -1,0 +1,353 @@
+digraph G {
+    CAP_4773 [
+        fillcolor = white,
+        label = "CAP 4773: Introduction to Data Science and Analytics",
+        style = filled
+    ]
+    
+    CDA_3203 [
+        fillcolor = red,
+        label = "CDA 3203: Computer Logic Design",
+        style = filled
+    ]
+    
+    CDA_4102 [
+        fillcolor = red,
+        label = "CDA 4102: Computer Architecture",
+        style = filled
+    ]
+    
+    CDA_4240C [
+        fillcolor = white,
+        label = "CDA 4240C: Design of Digital Systems and Lab",
+        style = filled
+    ]
+    
+    CDA_4630 [
+        fillcolor = white,
+        label = "CDA 4630: Introduction to Embedded System Design",
+        style = filled
+    ]
+    
+    CEN_4010 [
+        fillcolor = white,
+        label = "CEN 4010: Principles of Software Engineering",
+        style = filled
+    ]
+    
+    CNT_4007 [
+        fillcolor = red,
+        label = "CNT 4007: Communication Networks",
+        style = filled
+    ]
+    
+    COP_2220 [
+        fillcolor = yellow,
+        label = "COP 2220: Programming 1",
+        style = filled
+    ]
+    
+    COP_3014 [
+        fillcolor = yellow,
+        label = "COP 3014: Programming 2",
+        style = filled
+    ]
+    
+    COP_3530 [
+        fillcolor = red,
+        label = "COP 3530: Data Structures and Algorithm Analysis",
+        style = filled
+    ]
+    
+    COP_4610 [
+        fillcolor = red,
+        label = "COP 4610: Computer Operating Systems",
+        style = filled
+    ]
+    
+    COT_2000 [
+        fillcolor = yellow,
+        label = "COT 2000: Foundations of Computing ",
+        style = filled
+    ]
+    
+    EEE_3300 [
+        fillcolor = white,
+        label = "EEE 3300: Electronics 1",
+        style = filled
+    ]
+    
+    EEL_3111 [
+        fillcolor = white,
+        label = "EEL 3111: Circuits 1",
+        style = filled
+    ]
+    
+    EEL_3118L [
+        fillcolor = white,
+        label = "EEL 3118L: Electronics Laboratory 1",
+        style = filled
+    ]
+    
+    EEL_3502 [
+        fillcolor = white,
+        label = "EEL 3502: Signals and Digital Filter Design",
+        style = filled
+    ]
+    
+    EGN_1002 [
+        fillcolor = white,
+        label = "EGN 1002: Fundamentals of Engineering",
+        style = filled
+    ]
+    
+    EGN_4950C [
+        fillcolor = white,
+        label = "EGN 4950C: RI: Engineering Design 1",
+        style = filled
+    ]
+    
+    EGN_4952C [
+        fillcolor = white,
+        label = "EGN 4952C: RI: Engineering Design 2",
+        style = filled
+    ]
+    
+    EEE_4541 [
+        fillcolor = white,
+        label = "EEE 4541: Stochastic Processes and Random Signals",
+        style = filled
+    ]
+
+    MAC_1105 [
+        fillcolor = yellow,
+        label = "MAC 1105: College Algebra",
+        style = filled
+    ]
+    
+    MAC_1114 [
+        fillcolor = white,
+        label = "MAC 1114: Trigonometry",
+        style = filled
+    ]
+    
+    MAC_1140 [
+        fillcolor = white,
+        label = "MAC 1140: Precalculus Algebra",
+        style = filled
+    ]
+
+    MAC_2311 [
+        fillcolor = white,
+        label = "MAC 2311: Calculus with Analytic Geometry 1",
+        style = filled
+    ]
+    
+    MAC_2312 [
+        fillcolor = white,
+        label = "MAC 2312: Calculus with Analytic Geometry 2",
+        style = filled
+    ]
+    
+    MAC_2313 [
+        fillcolor = white,
+        label = "MAC 2313: Calculus with Analytic Geometry 3",
+        style = filled
+    ]
+    
+    MAD_2104 [
+        fillcolor = red,
+        label = "MAD 2104: Discrete Mathematics",
+        style = filled
+    ]
+    
+    MAP_3305 [
+        fillcolor = white,
+        label = "MAP 3305: Engineering Math 1",
+        style = filled
+    ]
+
+    MAT_1033 [
+        fillcolor = yellow,
+        label = "MAT 1033: Intermediate Algebra",
+        style = filled
+    ]
+
+    PHY_2048 [
+        fillcolor = white,
+        label = "PHY 2048: General Physics for Engineers 1",
+        style = filled
+    ]
+
+    PHY_2048L [
+        fillcolor = white,
+        label = "PHY 2048L: General Physics Lab 1",
+        style = filled
+    ]
+
+    PHY_2044 [
+        fillcolor = white,
+        label = "PHY 2044: Physics for Engineers 2",
+        style = filled
+    ]
+
+    PHY_2049L [
+        fillcolor = white,
+        label = "PHY 2048: General Physics Lab 2",
+        style = filled
+    ]
+
+    subgraph cluster_0 {
+        color = invis
+
+        subgraph cluster_0 {
+            color = lightgrey
+            label = "Pre-Requisites: 12 credits"
+            style = filled
+            
+            node [
+                color = white,
+                style = filled
+            ]
+
+            MAC_1105  -> MAC_1114
+            MAC_1105  -> MAC_1140
+            MAC_1105  -> MAD_2104
+
+            MAT_1033  -> MAC_1105
+        }
+
+        subgraph cluster_1 {
+            color = lightgrey
+            label = "Mathematics: 15 credits"
+            style = filled
+            
+            node [
+                color = white,
+                style = filled
+            ]
+
+            MAC_2311  -> MAC_2312
+            MAC_2312  -> MAC_2313
+            MAC_2312  -> MAP_3305
+        }
+
+        MAC_1114  -> MAC_2311
+        MAC_1140  -> MAC_2311
+    }
+
+    subgraph cluster_1 {
+        color = lightgrey
+        label = "Science: 9 credits"
+        style = filled
+        
+        node [
+            color = white,
+            style = filled
+        ]
+
+        PHY_2048  -> PHY_2048L
+        PHY_2048L -> PHY_2044
+        PHY_2044  -> PHY_2049L
+    }
+
+    subgraph cluster_2 {
+        label = "Core Courses: 60 credits"
+        
+        subgraph cluster_0 {
+            color = lightgrey
+            label = "Common Core: 24 credits"
+            style = filled
+
+            node [
+                color = white,
+                style = filled
+            ]
+
+            COT_2000
+
+            CDA_3203  -> CDA_4102
+            
+            COP_2220  -> CDA_4102
+            
+            EEE_4541  -> CAP_4773
+            EEE_4541  -> EGN_4950C
+
+            EGN_4950C -> EGN_4952C
+        }
+
+        subgraph cluster_1 {
+            color = lightgrey
+            label = "Computer Science Core: 15 credits"
+            style = filled
+
+            node [
+                color = white,
+                style = filled
+            ]
+
+            COP_3530  -> CEN_4010
+            COP_3530  -> CNT_4007
+            COP_3530  -> COP_4610
+
+            COP_3014
+            
+            COP_4610
+        }
+
+        subgraph cluster_2 {
+            color = lightgrey
+            label = "Electrical Engineering Core: 18 credits"
+            style = filled
+
+            node [
+                color = white,
+                style = filled
+            ]
+
+            CDA_3203  -> CDA_4240C
+
+            EEE_3300  -> EEL_3118L
+
+            EEL_3111  -> EEE_3300
+
+            EGN_1002  -> EEL_3111
+
+            MAC_2312  -> EEL_3502
+            MAC_2313  -> EEL_3111
+
+            MAP_3305  -> EEL_3111
+
+            PHY_2044  -> EEL_3111
+        }
+
+        subgraph cluster_3 {
+            color = lightgrey
+            label = "Computer Engineering Core: 3 credits"
+            style = filled
+
+            node [
+                color = white,
+                style = filled
+            ]
+
+            CDA_3203  -> CDA_4630
+
+            EEL_3118L -> CDA_4630
+        }
+
+        CEN_4010  -> EGN_4950C
+
+        COP_2220  -> COP_3014
+        COP_2220  -> COP_3530
+        COP_3014  -> COP_3530
+
+        COT_2000  -> COP_3530
+    }
+
+    MAC_2311  -> PHY_2048
+    MAC_2312  -> EEE_4541
+    MAC_2312  -> PHY_2044
+
+    MAD_2104  -> COP_3530
+}
